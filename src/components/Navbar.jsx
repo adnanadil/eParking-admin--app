@@ -57,4 +57,4 @@ function Navbar() {
   );
 }
 
-export default Navba;
+export default Navbar;
