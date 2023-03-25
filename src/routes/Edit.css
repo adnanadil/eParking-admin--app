@@ -1,0 +1,56 @@
+.edit-parking-lot-name-label {
+  padding: 10px;
+  font-size: 20px;
+  width: 450px;
+}
+
+.edit-parking-lot-cost-p {
+  margin-top: 50px;
+}
+
+.edit-parking-lot-cost-label {
+  padding: 10px;
+  font-size: 20px;
+  width: 100px;
+}
+
+.holder-parking-lot-number {
+  display: flex;
+  flex-direction: row;
+  width: 300px;
+  justify-content: space-between;
+}
+
+.p-holder-parking-lot-number {
+  margin-top: 50px;
+}
+
+.button-value-change {
+  border-radius: 10px;
+  height: 50px;
+  width: 80px;
+  border: none;
+  font-size: 20px;
+}
+
+.costPerHour {
+  text-align: center;
+  font-size: 40px;
+}
+
+.submit-button-holder {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 5px;
+}
+
+.submit-button{
+    width: 400px;
+    height: 100%;
+}

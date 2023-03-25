@@ -1,0 +1,28 @@
+.card-holder {
+  width: 250px;
+  height: 150px;
+  border-radius: 10px;
+  margin: 20px;
+  padding: 10px;
+  background-color: white;
+  filter: drop-shadow(5px 10px 10px #a9a9a9);
+}
+
+
+.violoation-card-header {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.violoation-card-details {
+    font-size: 18px;
+    margin: 10px;
+}
+
+.delete-icon {
+  width: 30px;
+  height: 30px;
+  color: red;
+  margin: 10px;
+}

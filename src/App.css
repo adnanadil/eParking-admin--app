@@ -7,9 +7,7 @@
   font-family: "Lato", sans-serif;
 }
 
-.home,
-.reports,
-.products {
+.home{
   display: flex;
   height: 90vh;
   align-items: center;
@@ -19,13 +17,34 @@
   color: #fff;
 }
 
+.edits{
+  font-display: flex;
+  flex-direction: column;
+  margin: 50px;
+}
+
+.violations{
+  /* display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto; */
+  /* grid-template-rows: 80px auto 80px; 
+  column-gap: 10px;
+  row-gap: 15px; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 50px;
+}
+
 /* Navbar CSS */
 .navbar {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   height: 80px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  background: -webkit-linear-gradient(45deg, #49a09d, #5f2c82);
+  background: linear-gradient(45deg, #49a09d, #5f2c82);
 }
 
 .menu-bars {
@@ -45,6 +64,9 @@
   top: 0;
   left: -100%;
   transition: 850ms;
+  z-index: 1;
+  background: -webkit-linear-gradient(45deg, #49a09d, #5f2c82);
+  background: linear-gradient(45deg, #49a09d, #5f2c82);
 }
 
 .nav-menu.active {
@@ -89,12 +111,16 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  background: -webkit-linear-gradient(45deg, #49a09d, #5f2c82);
+  background: linear-gradient(45deg, #49a09d, #5f2c82);
 }
 
 #allign-bottom {
   position: absolute;
   bottom: 0;
-  margin: 10px;
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
 }
 
 span {

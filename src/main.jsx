@@ -8,11 +8,14 @@ import {
   Outlet,
   createRoutesFromElements,
 } from "react-router-dom";
-import Products from "./routes/Products";
+import Edit from "./routes/Edit";
 import Home from "./routes/Home";
-import Reports from "./routes/Reports";
+import Violations from "./routes/Violations";
 import Navbar from "./components/Navbar";
 import "./App.css";
+
+import store from "./redux/store";
+import { Provider } from "react-redux";
 
 const AppLayout = () => (
   <>
@@ -40,17 +43,19 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "products",
-        element: <Products />,
+        path: "violations",
+        element: <Violations />,
       },
       {
-        path: "reports",
-        element: <Reports />,
+        path: "edit",
+        element: <Edit />,
       },
     ],
   },
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
 );
