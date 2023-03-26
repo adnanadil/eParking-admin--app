@@ -8,38 +8,59 @@ import { IconContext } from "react-icons";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import { db } from "../firebase.utils";
-import { doc, getDoc } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import { useSelector, useDispatch } from "react-redux";
+import { selectedParkingLotAction } from "../redux/firebase.slice";
 
 const Navbar = () => {
-  // const valueFromRedux = useSelector((state) => state.firebaseSlice.value)
+  const valueFromRedux = useSelector((state) => state.firebaseSlice.selectedParkingLot)
+
+  const dispatch = useDispatch()
+
+  const [parkingLotsArray, setParkingLotsArray] = useState([]);
+  const [parkingLotsCompleteArray, setParkingLotsCompleteArray] = useState([]);
 
   useEffect(() => {
-    // console.log(`this is the value that we have to show ${valueFromRedux}`)
-    // getData()
+    console.log(`this is the value that we have to show ${valueFromRedux}`)
+    getData();
   }, []);
 
   const getData = async () => {
-    const docRef = doc(db, "parkingLots", "DggU5M3HtESO4PLVSGTz");
-    const docSnap = await getDoc(docRef);
+    const q = query(collection(db, "parkingLots"));
 
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-    } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!");
-    }
+    const parkingLotsArrayTemp = [];
+    const parkingLotsArrayCompleteTemp = [];
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      // creating an array of parking lots
+      parkingLotsArrayTemp.push(doc.data().name);
+      parkingLotsArrayCompleteTemp.push(doc.data());
+    });
+    setParkingLotsArray(parkingLotsArrayTemp);
+    setParkingLotsCompleteArray(parkingLotsArrayCompleteTemp);
   };
 
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
 
-  const options = ["Mall Of Dahran", "Ithra", "Other Place"];
+  // const options = ["Mall Of Dahran", "Ithra", "Other Place"];
+  const options = parkingLotsArray;
   const defaultOption = options[0];
 
-  const onSelect = () => {
-    console.log(`Option selected...`);
+  const onSelect = (e) => {
+    const valueReturned = parkingLotsCompleteArray.find((eachItem) => {
+      return eachItem.name === e.value;
+    });
+    dispatch(selectedParkingLotAction(valueReturned.uID))
   };
 
   return (
@@ -74,7 +95,7 @@ const Navbar = () => {
               value={defaultOption}
               placeholder="Select an option"
             />
-            <button id="allign-bottom">Open Gate</button>
+            <button id="allign-bottom">{`Open Gate`}</button>
           </ul>
         </nav>
       </IconContext.Provider>
