@@ -1,30 +1,51 @@
 import "./Home.css";
 // import "./Table.css";
 import fakeData from "../MOCK_DATA.json";
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { useTable } from "react-table";
 import Table from "./elements/Table";
 import { Users } from "./users";
+import {
+  doc,
+  getDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
+import { db } from "../firebase.utils";
+import { useSelector } from "react-redux";
 
 function Home() {
-  const [query, setQuery] = React.useState("");
-  const keys = ["first_name", "last_name", "email"];
+  const [search_query, setSearchQuery] = React.useState("");
+  // const keys = ["first_name", "last_name", "email"];
+  const keys = ["parkingID"];
+  const [bookingsArray, setBookingsArray] = useState([])
   const search = (data) => {
-    return data.filter((item) =>
-      keys.some((key) => item[key].toLowerCase().includes(query))
+    console.log(data)
+    return data.filter((item) =>{
+      console.log(item)
+      keys.some((key) => console.log(`Our key:${item[key]}`))
+      return keys.some((key) => item[key].toLowerCase().includes(search_query))
+    }
     );
   };
+  const selectedParkingLotID = useSelector((state) => state.firebaseSlice.selectedParkingLot)
 
-  const getData = async () => {
-    const docRef = doc(db, "parkingLots", "DggU5M3HtESO4PLVSGTz");
-    const docSnap = await getDoc(docRef);
+  useEffect(() => {
+    getDataBookings()
+  },[selectedParkingLotID])
 
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-      return docSnap.data();
-    } else {
-      console.log("No such document!");
-    }
+  const getDataBookings = async () => {
+    const q = query(collection(db, `reservations-${selectedParkingLotID}`), where("timeInt", ">=", 0));
+
+    const tempBookingsHolderArray = []
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      tempBookingsHolderArray.push(doc.data())
+    });
+    setBookingsArray(tempBookingsHolderArray)
   };
 
   return (
@@ -32,9 +53,11 @@ function Home() {
       <input
         className="search"
         placeholder="Search..."
-        onChange={(e) => setQuery(e.target.value.toLowerCase())}
+        onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
       />
-        <Table data={search(Users)}></Table>
+        { bookingsArray.length != 0 && 
+          <Table data={search(bookingsArray)}></Table>
+        }
     </div>
   );
 }

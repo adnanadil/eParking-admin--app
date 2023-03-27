@@ -14,10 +14,12 @@ function Table({ data }) {
             <th>Duration</th>
           </tr>
           {data.map((item) => (
-            <tr key={item.id}>
-              <td>{item.first_name}</td>
-              <td>{item.last_name}</td>
-              <td>{item.email}</td>
+            <tr key={item.timeString}>
+              <td>{item.parkingSlot}</td>
+              <td>{item.parkingSlot}</td>
+              <td>{item.timeString}</td>
+              <td>{item.timeString}</td>
+              <td>{item.timeString}</td>
             </tr>
           ))}
         </tbody>

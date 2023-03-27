@@ -28,7 +28,7 @@ const Navbar = () => {
   const [parkingLotsCompleteArray, setParkingLotsCompleteArray] = useState([]);
 
   useEffect(() => {
-    console.log(`this is the value that we have to show ${valueFromRedux}`)
+    // console.log(`this is the value that we have to show ${valueFromRedux}`)
     getData();
   }, []);
 
@@ -46,6 +46,12 @@ const Navbar = () => {
     });
     setParkingLotsArray(parkingLotsArrayTemp);
     setParkingLotsCompleteArray(parkingLotsArrayCompleteTemp);
+
+    // Setting a default value for choosen parkinglot 
+    const valueReturned = parkingLotsArrayCompleteTemp.find((eachItem) => {
+      return eachItem.name === parkingLotsArrayTemp[0];
+    });
+    dispatch(selectedParkingLotAction(valueReturned.uID))
   };
 
   const [sidebar, setSidebar] = useState(false);
