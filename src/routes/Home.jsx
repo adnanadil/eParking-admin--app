@@ -83,7 +83,12 @@ function Home() {
 
   useEffect(() => {
     console.log(`re-render table ${bookingsFound}`);
+    document.addEventListener('keydown', detectKeyboard, true)
   }, [bookingsFound]);
+
+  const detectKeyboard = (e) => {
+    console.log(`This is pressed: ${e.key}`)
+  }
 
   return (
     <div className="bookings">
