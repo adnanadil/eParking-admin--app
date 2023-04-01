@@ -1,3 +1,10 @@
+.edit-parking-lot-image-label {
+  padding: 10px;
+  font-size: 20px;
+  width: 450px;
+  margin-bottom: 20px;
+}
+
 .edit-parking-lot-name-label {
   padding: 10px;
   font-size: 20px;
@@ -5,7 +12,7 @@
 }
 
 .edit-parking-lot-cost-p {
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 .edit-parking-lot-cost-label {
@@ -22,7 +29,7 @@
 }
 
 .p-holder-parking-lot-number {
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 .button-value-change {
@@ -50,7 +57,74 @@
   padding: 5px;
 }
 
-.submit-button{
-    width: 400px;
+.submit-button {
+  width: 400px;
+  height: 100%;
+}
+
+
+@media (max-width: 750px) {
+  .edit-parking-lot-image-label {
+    padding: 8px;
+    font-size: 18px;
+    width: 300px;
+    margin-bottom: 15px;
+  }
+
+  .edit-parking-lot-name-label {
+    padding: 8px;
+    font-size: 18px;
+    width: 300px;
+  }
+
+  .edit-parking-lot-cost-p {
+    margin-top: 20px;
+  }
+
+  .edit-parking-lot-cost-label {
+    padding: 8px;
+    font-size: 15px;
+    width: 80px;
+  }
+
+  .holder-parking-lot-number {
+    display: flex;
+    flex-direction: row;
+    width: 200px;
+    justify-content: space-between;
+  }
+
+  .p-holder-parking-lot-number {
+    margin-top: 20px;
+  }
+
+  .button-value-change {
+    border-radius: 10px;
+    height: 40px;
+    width: 60px;
+    border: none;
+    font-size: 20px;
+  }
+
+  .costPerHour {
+    text-align: center;
+    font-size: 30px;
+  }
+
+  .submit-button-holder {
+    position: absolute;
+    bottom: 0;
+    width: 80%;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 5px;
+  }
+
+  .submit-button {
+    width: 300px;
     height: 100%;
+  }
 }

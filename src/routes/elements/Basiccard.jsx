@@ -1,20 +1,31 @@
 import React from "react";
 import "./Basiccard.css";
 import * as AiIcons from "react-icons/ai";
+import { db } from "../../firebase.utils";
+import { doc, deleteDoc } from "firebase/firestore";
 
 
 function Basiccard({details}) {
   
-    const deletVioloation = () => {
+    const deleteVioloation = () => {
       // Add the violation ID while you add the booking ... 
-      // console.log(`Carry out delete for item ${details.violationsID}`)
+      if (window.confirm('Are you sure you wish to delete this item?')) {
+        console.log(`Carry out delete for item ${details.documentID}`)
+        deleteVioloations(details.documentID)
+      }
     };
+
+    const deleteVioloations = async(docID) => {
+      await deleteDoc(doc(db, "violations", docID));
+      location.reload();
+    }
 
   return (
     <div className="card-holder">
       <p className="violoation-card-header">{`Parking: ${details.parkingSlotName}`}</p>
       <p className="violoation-card-details">{`Violation found at ${details.timeInt}:00`}</p>
-      <AiIcons.AiFillDelete className="delete-icon" />
+      <AiIcons.AiFillDelete className="delete-icon" onClick={deleteVioloation}/>
+      <div className='delete-button' onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) this.onCancel(item) } } />
     </div>
   );
 }

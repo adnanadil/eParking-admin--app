@@ -49,3 +49,57 @@ td {
   width: 250px;
   font-size: 20px;
 }
+
+@media (max-width: 750px) {
+  .table-holder {
+    margin-top: 60px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 500px;
+    max-height: 500px;
+    width: 90%;
+    margin-left: 50px;
+    overflow-y: scroll;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  .list {
+    padding: 0;
+    list-style: none;
+    text-align: center;
+  }
+
+  .listItem {
+    margin-bottom: 20px;
+    font-size: 10px;
+    color: #444;
+    font-weight: 300;
+  }
+
+  table {
+    width: 100%;
+    /* margin: 50px 0px; */
+    border-spacing: 15px;
+    color: #444;
+  }
+
+  tr {
+    margin-bottom: 20px;
+  }
+
+  th {
+    text-align: left;
+    font-size: 15px;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    background-color: white;
+  }
+
+  td {
+    width: 250px;
+    font-size: 15px;
+  }
+}

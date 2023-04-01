@@ -18,16 +18,23 @@ import {
 } from "firebase/firestore";
 import { useSelector, useDispatch } from "react-redux";
 import { selectedParkingLotAction } from "../redux/firebase.slice";
+import io from "socket.io-client";
+const socket = io.connect("dry-brushlands-40059.herokuapp.com");
+// const socket = io.connect("http://localhost:3001");
+
 
 const Navbar = () => {
-  const valueFromRedux = useSelector((state) => state.firebaseSlice.selectedParkingLot)
+  const valueFromRedux = useSelector(
+    (state) => state.firebaseSlice.selectedParkingLot
+  );
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const [parkingLotsArray, setParkingLotsArray] = useState([]);
   const [parkingLotsCompleteArray, setParkingLotsCompleteArray] = useState([]);
 
   useEffect(() => {
+    socket.emit("join_room", "16");
     // console.log(`this is the value that we have to show ${valueFromRedux}`)
     getData();
   }, []);
@@ -47,11 +54,11 @@ const Navbar = () => {
     setParkingLotsArray(parkingLotsArrayTemp);
     setParkingLotsCompleteArray(parkingLotsArrayCompleteTemp);
 
-    // Setting a default value for choosen parkinglot 
+    // Setting a default value for choosen parkinglot
     const valueReturned = parkingLotsArrayCompleteTemp.find((eachItem) => {
       return eachItem.name === parkingLotsArrayTemp[0];
     });
-    dispatch(selectedParkingLotAction(valueReturned.uID))
+    dispatch(selectedParkingLotAction(valueReturned.uID));
   };
 
   const [sidebar, setSidebar] = useState(false);
@@ -66,7 +73,12 @@ const Navbar = () => {
     const valueReturned = parkingLotsCompleteArray.find((eachItem) => {
       return eachItem.name === e.value;
     });
-    dispatch(selectedParkingLotAction(valueReturned.uID))
+    dispatch(selectedParkingLotAction(valueReturned.uID));
+  };
+
+  const emitGateOpen = () => {
+    // Open Gate
+    socket.emit("send_message", { message: "O", room: "16" });
   };
 
   return (
@@ -101,7 +113,10 @@ const Navbar = () => {
               value={defaultOption}
               placeholder="Select an option"
             />
-            <button id="allign-bottom">{`Open Gate`}</button>
+            <button
+              id="allign-bottom"
+              onClick={emitGateOpen}
+            >{`Open Gate`}</button>
           </ul>
         </nav>
       </IconContext.Provider>

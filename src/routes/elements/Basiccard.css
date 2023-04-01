@@ -8,16 +8,15 @@
   filter: drop-shadow(5px 10px 10px #a9a9a9);
 }
 
-
 .violoation-card-header {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px;
 }
 
 .violoation-card-details {
-    font-size: 18px;
-    margin: 10px;
+  font-size: 18px;
+  margin: 10px;
 }
 
 .delete-icon {
@@ -25,4 +24,34 @@
   height: 30px;
   color: red;
   margin: 10px;
+}
+
+@media (max-width: 700px) {
+  .card-holder {
+    width: 200px;
+    height: 100px;
+    border-radius: 10px;
+    margin: 20px;
+    padding: 10px;
+    background-color: white;
+    filter: drop-shadow(5px 10px 10px #a9a9a9);
+  }
+
+  .violoation-card-header {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 5px;
+  }
+
+  .violoation-card-details {
+    font-size: 13px;
+    margin: 5px;
+  }
+
+  .delete-icon {
+    width: 20px;
+    height: 20px;
+    color: red;
+    margin: 5px;
+  }
 }
