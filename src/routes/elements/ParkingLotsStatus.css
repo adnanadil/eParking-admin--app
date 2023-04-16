@@ -1,0 +1,41 @@
+.mainStausHolder {
+  margin-top: 20px;
+  display: grid;
+  grid-template-rows: 0.5fr 1fr;
+  /* position: absolute;
+  bottom: 0; */
+  width: 100%;
+}
+
+.statusHolder {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.dot-green {
+  height: 25px;
+  width: 25px;
+  background-color: green;
+  border-radius: 50%;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.dot-red {
+  height: 25px;
+  width: 25px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.name-dot-holder {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+}

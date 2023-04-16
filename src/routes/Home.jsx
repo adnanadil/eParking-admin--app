@@ -62,7 +62,10 @@ function Home() {
       timeZoneName: "short",
     });
 
-    const dateInString = localDate_fromUnix.slice(0, 10);
+    const slitStringArray = localDate_fromUnix.split(" ")
+
+    // const dateInString = localDate_fromUnix.slice(0, 10);
+    const dateInString = slitStringArray[0];
     var timeStamp = moment(dateInString, "MM/DD/YYYY").unix();
 
     const q = query(

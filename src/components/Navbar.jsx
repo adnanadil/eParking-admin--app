@@ -15,13 +15,14 @@ import {
   query,
   where,
   getDocs,
+  onSnapshot,
 } from "firebase/firestore";
 import { useSelector, useDispatch } from "react-redux";
 import { selectedParkingLotAction } from "../redux/firebase.slice";
+import ParkingLotsStatus from "../routes/elements/ParkingLotsStatus";
 import io from "socket.io-client";
-const socket = io.connect("dry-brushlands-40059.herokuapp.com");
-// const socket = io.connect("http://localhost:3001");
-
+// const socket = io.connect("dry-brushlands-40059.herokuapp.com");
+const socket = io.connect("http://localhost:3001");
 
 const Navbar = () => {
   const valueFromRedux = useSelector(
@@ -32,8 +33,13 @@ const Navbar = () => {
 
   const [parkingLotsArray, setParkingLotsArray] = useState([]);
   const [parkingLotsCompleteArray, setParkingLotsCompleteArray] = useState([]);
+  const [parkingLotOnBoard, setParkingLotOnBoard] = useState("");
 
   useEffect(() => {
+    const unsub = onSnapshot(doc(db, "selected", "jCeKiQgdMsh8BAMTgRlr"), (doc) => {
+      console.log("Current data: ", doc.data());
+      setParkingLotOnBoard(doc.data().selectedLot)
+    });
     socket.emit("join_room", "16");
     // console.log(`this is the value that we have to show ${valueFromRedux}`)
     getData();
@@ -78,7 +84,8 @@ const Navbar = () => {
 
   const emitGateOpen = () => {
     // Open Gate
-    socket.emit("send_message", { message: "O", room: "16" });
+    socket.emit("send_this", { message: "O", room: "16" });
+    // socket.emit("send_this", { message: "DggU5M3HtESO4PLVSGTz, T, F, F, F, F, F", room: "16" });
   };
 
   return (
@@ -113,10 +120,14 @@ const Navbar = () => {
               value={defaultOption}
               placeholder="Select an option"
             />
-            <button
-              id="allign-bottom"
-              onClick={emitGateOpen}
-            >{`Open Gate`}</button>
+            <ParkingLotsStatus></ParkingLotsStatus>
+            <div id="allign-bottom">
+              <div id="holder-board-parking-lot">{parkingLotOnBoard}</div>
+              <button
+                id="bottom-button"
+                onClick={emitGateOpen}
+              >{`Open Gate`}</button>
+            </div>
           </ul>
         </nav>
       </IconContext.Provider>
