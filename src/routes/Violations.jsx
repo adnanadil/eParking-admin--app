@@ -13,8 +13,8 @@ import {
 import { useSelector } from "react-redux";
 import Spinner from "./elements/Spinner";
 import io from "socket.io-client";
-// const socket = io.connect("dry-brushlands-40059.herokuapp.com");
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect("dry-brushlands-40059.herokuapp.com");
+// const socket = io.connect("http://localhost:3001");
 
 
 function Violations() {

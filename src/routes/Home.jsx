@@ -12,6 +12,7 @@ import {
   query,
   where,
   getDocs,
+  onSnapshot
 } from "firebase/firestore";
 import { db } from "../firebase.utils";
 import { useDispatch, useSelector } from "react-redux";
@@ -73,15 +74,31 @@ function Home() {
       where("timeStamp", ">=", timeStamp - 86400 * 3)
     );
 
-    const tempBookingsHolderArray = [];
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      tempBookingsHolderArray.push(doc.data());
+    // const tempBookingsHolderArray = [];
+    // const querySnapshot = await getDocs(q);
+    // querySnapshot.forEach((doc) => {
+    //   // doc.data() is never undefined for query doc snapshots
+    //   tempBookingsHolderArray.push(doc.data());
+    // });
+    // dispatch(bookingsAction(tempBookingsHolderArray));
+    // setBookingsArray(tempBookingsHolderArray);
+    // setLoading(false);
+
+
+    // REAL TIME 
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const tempBookingsHolderArray = [];
+      querySnapshot.forEach((doc) => {
+        var documentID = doc.id;
+        tempBookingsHolderArray.push({ documentID, ...doc.data() });
+        // console.log(doc.data());
+      });
+      console.log(tempBookingsHolderArray);
+      setBookingsArray(tempBookingsHolderArray);
+      setLoading(false);
     });
-    dispatch(bookingsAction(tempBookingsHolderArray));
-    setBookingsArray(tempBookingsHolderArray);
-    setLoading(false);
+    // REAL TIME 
+
   };
 
   useEffect(() => {

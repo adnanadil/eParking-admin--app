@@ -21,8 +21,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectedParkingLotAction } from "../redux/firebase.slice";
 import ParkingLotsStatus from "../routes/elements/ParkingLotsStatus";
 import io from "socket.io-client";
-// const socket = io.connect("dry-brushlands-40059.herokuapp.com");
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect("dry-brushlands-40059.herokuapp.com");
+// const socket = io.connect("http://localhost:3001");
 
 const Navbar = () => {
   const valueFromRedux = useSelector(
