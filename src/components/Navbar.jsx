@@ -85,7 +85,7 @@ const Navbar = () => {
   const emitGateOpen = () => {
     // Open Gate
     socket.emit("send_this", { message: "O", room: "16" });
-    // socket.emit("send_this", { message: "DggU5M3HtESO4PLVSGTz, T, F, F, F, F, F", room: "16" });
+    // socket.emit("send_this", { message: "DggU5M3HtESO4PLVSGTz, T, T, F, F, F, F", room: "16" });
   };
 
   return (

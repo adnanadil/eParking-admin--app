@@ -6,6 +6,9 @@ import { doc, deleteDoc } from "firebase/firestore";
 
 
 function Basiccard({details}) {
+
+    var dateArray = details.date.split(",")
+    var date = dateArray[0]
   
     const deleteVioloation = () => {
       // Add the violation ID while you add the booking ... 
@@ -17,13 +20,13 @@ function Basiccard({details}) {
 
     const deleteVioloations = async(docID) => {
       await deleteDoc(doc(db, "violations", docID));
-      location.reload();
+      // location.reload();
     }
 
   return (
     <div className="card-holder">
       <p className="violoation-card-header">{`Parking: ${details.parkingSlotName}`}</p>
-      <p className="violoation-card-details">{`Violation found at ${details.timeInt}:00`}</p>
+      <p className="violoation-card-details">{`Violation found at ${details.timeInt}:00 on ${date}`}</p>
       <AiIcons.AiFillDelete className="delete-icon" onClick={deleteVioloation}/>
       <div className='delete-button' onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) this.onCancel(item) } } />
     </div>
