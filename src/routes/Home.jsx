@@ -12,14 +12,13 @@ import {
   query,
   where,
   getDocs,
-  onSnapshot
+  onSnapshot,
 } from "firebase/firestore";
 import { db } from "../firebase.utils";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment/moment";
 import { bookingsAction } from "../redux/firebase.slice";
 import Spinner from "./elements/Spinner";
-
 
 function Home() {
   const dispatch = useDispatch();
@@ -63,7 +62,7 @@ function Home() {
       timeZoneName: "short",
     });
 
-    const slitStringArray = localDate_fromUnix.split(" ")
+    const slitStringArray = localDate_fromUnix.split(" ");
 
     // const dateInString = localDate_fromUnix.slice(0, 10);
     const dateInString = slitStringArray[0];
@@ -84,8 +83,7 @@ function Home() {
     // setBookingsArray(tempBookingsHolderArray);
     // setLoading(false);
 
-
-    // REAL TIME 
+    // REAL TIME
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const tempBookingsHolderArray = [];
       querySnapshot.forEach((doc) => {
@@ -97,23 +95,22 @@ function Home() {
       setBookingsArray(tempBookingsHolderArray);
       setLoading(false);
     });
-    // REAL TIME 
-
+    // REAL TIME
   };
 
   useEffect(() => {
     console.log(`re-render table ${bookingsFound}`);
-    document.addEventListener('keydown', detectKeyboard, true)
+    document.addEventListener("keydown", detectKeyboard, true);
   }, [bookingsFound]);
 
   const detectKeyboard = (e) => {
-    console.log(`This is pressed: ${e.key}`)
-  }
+    console.log(`This is pressed: ${e.key}`);
+  };
 
   return (
     <div className="bookings">
       <input
-        style={{alignSelf: "flex-start"}}
+        style={{ alignSelf: "flex-start" }}
         className="search"
         placeholder="Search..."
         onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}

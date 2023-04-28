@@ -26,7 +26,7 @@ function Basiccard({details}) {
   return (
     <div className="card-holder">
       <p className="violoation-card-header">{`Parking: ${details.parkingSlotName}`}</p>
-      <p className="violoation-card-details">{`Violation found at ${details.timeInt}:00 on ${date}`}</p>
+      <p className="violoation-card-details">{`Violation found at ${details.timeInt}:${details.minute} on ${date}`}</p>
       <AiIcons.AiFillDelete className="delete-icon" onClick={deleteVioloation}/>
       <div className='delete-button' onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) this.onCancel(item) } } />
     </div>

@@ -16,6 +16,7 @@ import {
   where,
   getDocs,
   onSnapshot,
+  deleteDoc,
 } from "firebase/firestore";
 import { useSelector, useDispatch } from "react-redux";
 import { selectedParkingLotAction } from "../redux/firebase.slice";
@@ -25,6 +26,11 @@ const socket = io.connect("dry-brushlands-40059.herokuapp.com");
 // const socket = io.connect("http://localhost:3001");
 
 const Navbar = () => {
+
+  const selectedParkingLotID = useSelector(
+    (state) => state.firebaseSlice.selectedParkingLot
+  );
+
   const valueFromRedux = useSelector(
     (state) => state.firebaseSlice.selectedParkingLot
   );
@@ -36,10 +42,13 @@ const Navbar = () => {
   const [parkingLotOnBoard, setParkingLotOnBoard] = useState("");
 
   useEffect(() => {
-    const unsub = onSnapshot(doc(db, "selected", "jCeKiQgdMsh8BAMTgRlr"), (doc) => {
-      console.log("Current data: ", doc.data());
-      setParkingLotOnBoard(doc.data().selectedLot)
-    });
+    const unsub = onSnapshot(
+      doc(db, "selected", "jCeKiQgdMsh8BAMTgRlr"),
+      (doc) => {
+        console.log("Current data: ", doc.data());
+        setParkingLotOnBoard(doc.data().selectedLot);
+      }
+    );
     socket.emit("join_room", "16");
     // console.log(`this is the value that we have to show ${valueFromRedux}`)
     getData();
@@ -88,6 +97,73 @@ const Navbar = () => {
     // socket.emit("send_this", { message: "DggU5M3HtESO4PLVSGTz, T, T, F, F, F, F", room: "16" });
   };
 
+  const delAllBoookings = () => {
+    // delReservations();
+    delEachReservation(selectedParkingLotID);
+  };
+
+  const delReservations = async () => {
+    // using this to get all parkingLot IDs..
+
+    const q = query(collection(db, "parkingLots"));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      // console.log(doc.id);
+      delEachReservation(doc.id);
+    });
+
+    // const parkingLots = db.collection("parkingLots");
+    // const snapshot_main = await parkingLots.get();
+    // if (snapshot_main.empty) {
+    //   // This should not run as we have parking lots
+    //   console.log("No matching documents.");
+    //   return;
+    // }
+
+    // // For each reservations-parkingLot carry out del opeartion
+    // snapshot_main.forEach((doc) => {
+    //   console.log(doc.id, "=>", doc.data());
+    //   delEachReservation(doc.id);
+    // });
+  };
+
+  const delEachReservation = async (parkingLot) => {
+    // console.log(`ParkingLotID: ${parkingLot}`);
+
+    const q = query(collection(db, `reservations-${parkingLot}`), where("timeStamp", "!=", 0));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id);
+      carryOutDelofReservations(parkingLot, doc.id);
+    });
+
+    // const delReservationsRef = db.collection(`reservations-${parkingLot}`);
+    // const snapshot = await delReservationsRef
+    //   // .where("timeStamp", "<=", timeStamp - 86400 * 3)
+    //   .get();
+    // if (snapshot.empty) {
+    //   // We will keep these reservations so we get empty return...
+    //   console.log("We will not del reservations..");
+    // } else {
+    //   snapshot.forEach((doc) => {
+    //     console.log(
+    //       `we will del the reservation...in ${parkingLot} with ID ${doc.id}`
+    //     );
+    //     console.log(doc.id, "=>", doc.data());
+    //     carryOutDelofReservations(parkingLot, doc.id);
+    //   });
+    // }
+  };
+
+  const carryOutDelofReservations = async (parkingLotID, docID) => {
+    // await db.collection(`reservations-${parkingLotID}`).doc(docID).delete();
+    await deleteDoc(doc(db, `reservations-${parkingLotID}`, docID));
+  };
+
   return (
     <>
       <IconContext.Provider value={{ color: "undefined" }}>
@@ -123,6 +199,10 @@ const Navbar = () => {
             <ParkingLotsStatus></ParkingLotsStatus>
             <div id="allign-bottom">
               <div id="holder-board-parking-lot">{parkingLotOnBoard}</div>
+              <button
+                id="bottom-button"
+                onClick={delAllBoookings}
+              >{`Delete All Bookings`}</button>
               <button
                 id="bottom-button"
                 onClick={emitGateOpen}
