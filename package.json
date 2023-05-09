@@ -12,6 +12,8 @@
     "@reduxjs/toolkit": "^1.9.3",
     "bootstrap": "^5.2.3",
     "firebase": "^9.18.0",
+    "localforage": "^1.10.0",
+    "match-sorter": "^6.3.1",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
@@ -21,10 +23,11 @@
     "react-loader-spinner": "^5.3.4",
     "react-redux": "^8.0.5",
     "react-router": "^6.9.0",
-    "react-router-dom": "^6.9.0",
+    "react-router-dom": "^6.11.1",
     "react-table": "^7.8.0",
     "redux": "^4.2.1",
-    "socket.io-client": "^4.6.1"
+    "socket.io-client": "^4.6.1",
+    "sort-by": "^1.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

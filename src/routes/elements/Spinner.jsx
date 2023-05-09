@@ -1,3 +1,6 @@
+// We have made a spinner component so that we can use it everywhere we need a spinner instead of 
+// coding a spinner very time 
+
 import React from "react";
 import "./Spinner.css";
 

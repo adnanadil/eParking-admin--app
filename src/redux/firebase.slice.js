@@ -1,3 +1,6 @@
+// This is a redux slice we have learned how to use this library by following the redux documentation 
+// Redux documentation: https://redux.js.org/tutorials/quick-start
+// based on this example we have used redux in our application.
 import { createSlice } from '@reduxjs/toolkit'
 
 export const firebaseSlice = createSlice({
