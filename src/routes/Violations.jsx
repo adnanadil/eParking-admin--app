@@ -28,9 +28,15 @@ function Violations() {
   const [violoations, setViolations] = useState([]);
 
 
+  let unsubscribe 
   // Using the useEffect function to get the violations 
   useEffect(() => {
     getViolations();
+    console.log(`This is the parking lot in the redux state: ${parkingLotID}`)
+
+    return (
+      unsubscribe
+    )
   }, [parkingLotID]);
 
   // The function to get the violations in real time and it updates as the data in the database update or changes
@@ -41,7 +47,7 @@ function Violations() {
     );
 
     // Implementing real time update (we got help from the firestore documentation)
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+    unsubscribe = onSnapshot(q, (querySnapshot) => {
       const tempHolderArray_2 = [];
       querySnapshot.forEach((doc) => {
         var documentID = doc.id;

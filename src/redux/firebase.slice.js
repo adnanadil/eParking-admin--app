@@ -7,7 +7,8 @@ export const firebaseSlice = createSlice({
   name: 'firebaseSlice',
   initialState: {
     selectedParkingLot: "",
-    bookingsFound: []
+    bookingsFound: [],
+    allParkingLots: []
   },
   reducers: {
     selectedParkingLotAction: (state, action) => {
@@ -16,10 +17,13 @@ export const firebaseSlice = createSlice({
     bookingsAction: (state, action) => {
       state.bookingsFound = action.payload;
     },
+    allParkingLotsAction: (state, action) => {
+      state.allParkingLots = action.payload;
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { selectedParkingLotAction, bookingsAction } = firebaseSlice.actions
+export const { selectedParkingLotAction, bookingsAction, allParkingLotsAction } = firebaseSlice.actions
 
 export default firebaseSlice.reducer

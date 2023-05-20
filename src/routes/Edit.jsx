@@ -121,7 +121,6 @@ function Edit() {
       imageURL: parkingLotEditedImage,
       costPerHour: parseInt(editedCostPerHour),
     });
-    // setLoading(false);
     location.reload()
   };
 

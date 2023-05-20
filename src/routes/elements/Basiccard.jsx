@@ -31,7 +31,6 @@ function Basiccard({details}) {
     // Function delete the violation
     const deleteViolations = async(docID) => {
       await deleteDoc(doc(db, "violations", docID));
-
     }
 
   // Here were rendering the needed card component... it has a div that is the main holder 

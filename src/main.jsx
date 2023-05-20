@@ -4,10 +4,7 @@ import { createRoot } from "react-dom/client";
 import {
   createBrowserRouter,
   RouterProvider,
-  Route,
-  Link,
   Outlet,
-  createRoutesFromElements,
 } from "react-router-dom";
 import Edit from "./routes/Edit";
 import Home from "./routes/Home";
@@ -49,7 +46,7 @@ const router = createBrowserRouter([
 ]);
 
 // Note: We can see above that we have three pages and the NavBar these are components that we will define and code separately. So next we will look at each of these components in details
-// Tip: We can find each of the components on the left pannel and the imports will help in seeing their locations.
+// Tip: We can find each of the components on the left panel and the imports will help in seeing their locations.
 
 // Index.html is the main html page that we start from and it adds this page as the main page that we start from
 // Here we are creating a router structure so that we can have multiple pages in the admin app 

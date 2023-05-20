@@ -1,4 +1,4 @@
-// Importing all the libraries and the files neede for this component
+// Importing all the libraries and the files needed for this component
 import React, { useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
@@ -20,9 +20,10 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { useSelector, useDispatch } from "react-redux";
-import { selectedParkingLotAction } from "../redux/firebase.slice";
+import { allParkingLotsAction, selectedParkingLotAction } from "../redux/firebase.slice";
 import ParkingLotsStatus from "../routes/elements/ParkingLotsStatus";
 import io from "socket.io-client";
+import ChangeParkingLot from "../routes/elements/ChangeParkingLot";
 const socket = io.connect("dry-brushlands-40059.herokuapp.com");
 // const socket = io.connect("http://localhost:3001");
 
@@ -55,6 +56,10 @@ const Navbar = () => {
     );
     socket.emit("join_room", "16");
     getData();
+
+    return(
+      unsub
+    )
   }, []);
 
   // Function to get all the parkingLots in the database (we are using the Firestore documentation in order to get the code which will be used to get the needed data)
@@ -79,6 +84,7 @@ const Navbar = () => {
       return eachItem.name === parkingLotsArrayTemp[0];
     });
     dispatch(selectedParkingLotAction(valueReturned.uID));
+    dispatch(allParkingLotsAction(parkingLotsArrayCompleteTemp))
   };
 
   // Defining state variable to control the navbar side panel
@@ -102,6 +108,8 @@ const Navbar = () => {
   const emitGateOpen = () => {
     // Open Gate
     socket.emit("send_message", { message: "O", room: "16" });
+    // socket.emit("send_this", { message: "DggU5M3HtESO4PLVSGTz, F, T, F, F, F, T", room: "16" });
+    console.log('Open Gate')
   };
 
   // We make use of this function to delete all the bookings in the database
@@ -171,6 +179,7 @@ const Navbar = () => {
             />
             <ParkingLotsStatus></ParkingLotsStatus>
             <div id="allign-bottom">
+              {/* <ChangeParkingLot></ChangeParkingLot> */}
               <div id="holder-board-parking-lot">{parkingLotOnBoard}</div>
               <button
                 id="bottom-button"
